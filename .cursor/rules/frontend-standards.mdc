@@ -1,0 +1,24 @@
+---
+description: Frontend engineering standards — read rules.md before any code change
+alwaysApply: true
+---
+
+# Frontend standards
+
+**Before writing or modifying code, read `rules.md` at the repo root.**
+
+## Non-negotiables
+
+- **Modularity:** target ≤200 lines/file; never commit files >400 lines — split into `features/`, `components/`, `hooks/`, `lib/`.
+- **Segregation:** `api/` = HTTP only; `pages/` = thin route shells; `types/` = contracts; no `fetch` in components.
+- **Consistency:** `@/` imports; named exports; match existing patterns in the nearest folder.
+- **Server state:** TanStack Query for API data; `useAuth` for session; Zod + RHF for forms.
+- **Scope:** minimal diffs; no unrelated refactors; types must match backend contracts in `types/`.
+
+## New feature order
+
+1. `types/` → 2. `api/` → 3. `lib/schemas.ts` (if form) → 4. `features/<name>/` or `components/` → 5. thin `pages/` + route.
+
+## Before merge
+
+`npm run build` and `npm run lint` must pass. See `rules.md` for full standards.
