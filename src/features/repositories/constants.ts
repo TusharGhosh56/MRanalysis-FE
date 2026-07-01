@@ -8,7 +8,12 @@ export const IN_PROGRESS_STATUSES = new Set<RepositoryStatus>([
 ])
 
 export const STATUS_POLL_INTERVAL_MS = 3000
+export const JOB_POLL_INTERVAL_MS = 2500
 
 export function isAnalysisInProgress(status: RepositoryStatus): boolean {
   return IN_PROGRESS_STATUSES.has(status)
+}
+
+export function isJobTerminal(status: RepositoryStatus): boolean {
+  return status === 'completed' || status === 'failed'
 }

@@ -64,6 +64,33 @@ export interface BusFactor {
   top_contributor_pct: number
 }
 
+export interface FolderGrowth {
+  path: string
+  commits_first_half: number
+  commits_second_half: number
+  growth_rate: number
+}
+
+export interface LargestCommit {
+  hash: string
+  author_name: string
+  committed_at: string
+  insertions: number
+  deletions: number
+  message: string
+}
+
+export interface RepositoryMetrics {
+  summary: AnalyticsSummary
+  commits_per_week: CommitsPerWeek[]
+  top_contributors: TopContributor[]
+  top_modified_files: TopModifiedFile[]
+  inactive_contributors: InactiveContributor[]
+  folder_growth: FolderGrowth[]
+  bus_factor: BusFactor
+  largest_commits: LargestCommit[]
+}
+
 export interface AnalyticsSnapshot {
   metric_key: string
   payload: unknown
