@@ -1,10 +1,16 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { BarChart3, LogOut } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
+
+const navLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/reports', label: 'Analysis Reports' },
+] as const
 
 export function AppHeader() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
   function handleLogout() {
     logout()
@@ -17,22 +23,46 @@ export function AppHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-github-border/60 bg-surface-elevated/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        <Link
-          to="/"
-          className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
-        >
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-github-accent/20 text-accent-teal">
-            <BarChart3 className="h-4 w-4" />
-          </span>
-          <span className="text-base font-semibold text-white sm:text-lg">
-            GitHub Analytics
-          </span>
-        </Link>
+      <div className="flex w-full items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-6">
+          <Link
+            to="/"
+            className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-github-accent/20 text-accent-teal">
+              <BarChart3 className="h-4 w-4" />
+            </span>
+            <span className="text-base font-semibold text-white sm:text-lg">
+              GitHub Analytics
+            </span>
+          </Link>
+
+          <nav className="hidden items-center gap-1 sm:flex">
+            {navLinks.map(({ to, label }) => {
+              const isActive =
+                to === '/'
+                  ? location.pathname === '/'
+                  : location.pathname.startsWith(to)
+              return (
+                <Link
+                  key={to}
+                  to={to}
+                  className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+                    isActive
+                      ? 'bg-github-accent/15 text-accent-teal'
+                      : 'text-github-muted hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  {label}
+                </Link>
+              )
+            })}
+          </nav>
+        </div>
 
         {user && (
           <div className="flex items-center gap-3">
-            <div className="hidden items-center gap-2 rounded-full border border-github-border/80 bg-surface/60 px-3 py-1.5 sm:flex">
+            <div className="hidden items-center gap-2 rounded-full border border-github-border/80 bg-surface/60 px-3 py-1.5 md:flex">
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-github-accent/30 text-xs font-medium text-accent-teal">
                 {initials}
               </span>

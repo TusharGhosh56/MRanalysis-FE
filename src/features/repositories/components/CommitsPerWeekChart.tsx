@@ -12,6 +12,10 @@ import {
 } from 'recharts'
 import { Card } from '@/components/ui/Card'
 import {
+  formatIsoWeek,
+  formatIsoWeekShort,
+} from '@/features/analysis-reports/utils/format-metrics'
+import {
   GSAP_DEFAULT_DURATION,
   GSAP_DEFAULT_EASE,
   prefersReducedMotion,
@@ -22,9 +26,13 @@ gsap.registerPlugin(useGSAP)
 
 interface CommitsPerWeekChartProps {
   data: CommitsPerWeek[] | null
+  className?: string
 }
 
-export function CommitsPerWeekChart({ data }: CommitsPerWeekChartProps) {
+export function CommitsPerWeekChart({
+  data,
+  className = '',
+}: CommitsPerWeekChartProps) {
   const chartRef = useRef<HTMLDivElement>(null)
 
   useGSAP(
@@ -42,7 +50,7 @@ export function CommitsPerWeekChart({ data }: CommitsPerWeekChartProps) {
   )
 
   return (
-    <Card hover>
+    <Card className={className}>
       <h2 className="mb-4 text-lg font-semibold text-white">Commits per week</h2>
       {data && data.length > 0 ? (
         <div ref={chartRef} className="h-64">
@@ -53,6 +61,9 @@ export function CommitsPerWeekChart({ data }: CommitsPerWeekChartProps) {
                 dataKey="week"
                 tick={{ fill: '#8b949e', fontSize: 11 }}
                 axisLine={{ stroke: '#30363d' }}
+                tickFormatter={formatIsoWeekShort}
+                interval="preserveStartEnd"
+                minTickGap={24}
               />
               <YAxis
                 tick={{ fill: '#8b949e', fontSize: 11 }}
@@ -65,6 +76,7 @@ export function CommitsPerWeekChart({ data }: CommitsPerWeekChartProps) {
                   borderRadius: '8px',
                 }}
                 cursor={{ fill: 'rgba(63, 185, 80, 0.08)' }}
+                labelFormatter={(week) => formatIsoWeek(String(week))}
               />
               <Bar
                 dataKey="count"

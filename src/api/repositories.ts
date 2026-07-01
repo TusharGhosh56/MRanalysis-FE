@@ -7,8 +7,21 @@ import type {
   RepositorySummary,
 } from '@/types/repository'
 
+function parseRepositoryList(data: unknown): Repository[] {
+  if (Array.isArray(data)) return data
+  if (data && typeof data === 'object') {
+    const record = data as Record<string, unknown>
+    for (const key of ['repositories', 'items', 'data']) {
+      const value = record[key]
+      if (Array.isArray(value)) return value as Repository[]
+    }
+  }
+  return []
+}
+
 export async function listRepositories(): Promise<Repository[]> {
-  return apiRequest<Repository[]>('/repositories')
+  const data = await apiRequest<unknown>('/repositories')
+  return parseRepositoryList(data)
 }
 
 export async function getRepository(id: string): Promise<RepositorySummary> {

@@ -47,6 +47,12 @@ body::before {
   box-shadow: var(--shadow-card);
 }
 
+@utility landing-surface {
+  background: rgba(22, 27, 34, 0.55);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(48, 54, 61, 0.55);
+}
+
 @utility gradient-text {
   background: linear-gradient(135deg, #3fb950 0%, #56d364 50%, #3fb950 100%);
   -webkit-background-clip: text;

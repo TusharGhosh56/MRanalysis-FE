@@ -4,6 +4,7 @@ import type { TopContributor } from '@/types/repository'
 interface TopContributorsListProps {
   contributors: TopContributor[] | null
   limit?: number
+  className?: string
 }
 
 function getInitials(name: string): string {
@@ -17,14 +18,15 @@ function getInitials(name: string): string {
 export function TopContributorsList({
   contributors,
   limit = 10,
+  className = '',
 }: TopContributorsListProps) {
   const items = contributors?.slice(0, limit) ?? []
 
   return (
-    <Card hover>
+    <Card className={className}>
       <h2 className="mb-4 text-lg font-semibold text-white">Top contributors</h2>
       {items.length > 0 ? (
-        <ul className="space-y-1">
+        <ul className="max-h-72 space-y-1 overflow-y-auto">
           {items.map((contributor, index) => (
             <li
               key={contributor.email}

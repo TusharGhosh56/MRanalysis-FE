@@ -20,7 +20,7 @@ export function Card({ children, className = '', hover = false }: CardProps) {
 
   return (
     <Component
-      className={`glass-card rounded-xl p-6 ${className}`}
+      className={`glass-card h-full rounded-xl p-6 ${className}`}
       {...motionProps}
     >
       {children}

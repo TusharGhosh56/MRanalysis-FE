@@ -2,10 +2,12 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { AuthLayout } from '@/components/layout/AuthLayout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
-import { DashboardPage } from '@/pages/DashboardPage'
+import { AnalysisReportDetailPage } from '@/pages/AnalysisReportDetailPage'
+import { AnalysisReportsPage } from '@/pages/AnalysisReportsPage'
+import { LandingPage } from '@/pages/LandingPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
-import { RepositoryDetailPage } from '@/pages/RepositoryDetailPage'
+import { LegacyRepositoryRedirect } from '@/routes/LegacyRepositoryRedirect'
 
 export const router = createBrowserRouter([
   {
@@ -21,8 +23,13 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [
-          { index: true, element: <DashboardPage /> },
-          { path: 'repositories/:id', element: <RepositoryDetailPage /> },
+          { index: true, element: <LandingPage /> },
+          { path: 'reports', element: <AnalysisReportsPage /> },
+          { path: 'reports/:id', element: <AnalysisReportDetailPage /> },
+          {
+            path: 'repositories/:id',
+            element: <LegacyRepositoryRedirect />,
+          },
         ],
       },
       { path: '*', element: <Navigate to="/" replace /> },
