@@ -29,6 +29,8 @@ export interface JobResponse {
   stage: string | null
   progress_pct: number
   error_message: string | null
+  polling_timed_out?: boolean
+  poll_timeout_seconds?: number
   result: JobResult | null
 }
 

@@ -1,35 +1,56 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getJob } from '@/api/jobs'
 import {
-  isJobTerminal,
+  getJobErrorMessage,
+  JOB_MAX_POLL_DURATION_MS,
   JOB_POLL_INTERVAL_MS,
+  shouldStopJobPolling,
 } from '@/features/repositories/constants'
-import { getMetricsFromJob } from '@/features/repositories/utils/job-metrics'
 import { queryKeys } from '@/lib/query-keys'
 
 export function useJobPolling(jobId: string | null) {
   const queryClient = useQueryClient()
+  const pollStartedAtRef = useRef<number | null>(null)
+  const [clientTimedOut, setClientTimedOut] = useState(false)
+
+  useEffect(() => {
+    if (jobId) {
+      pollStartedAtRef.current = Date.now()
+      setClientTimedOut(false)
+      return
+    }
+    pollStartedAtRef.current = null
+    setClientTimedOut(false)
+  }, [jobId])
 
   const query = useQuery({
     queryKey: queryKeys.jobs.detail(jobId!),
     queryFn: () => getJob(jobId!),
-    enabled: Boolean(jobId),
+    enabled: Boolean(jobId) && !clientTimedOut,
     refetchInterval: (q) => {
-      const status = q.state.data?.status
-      if (status && isJobTerminal(status)) return false
+      if (clientTimedOut) return false
+      if (pollStartedAtRef.current !== null) {
+        const elapsed = Date.now() - pollStartedAtRef.current
+        if (elapsed >= JOB_MAX_POLL_DURATION_MS) {
+          setClientTimedOut(true)
+          return false
+        }
+      }
+      if (shouldStopJobPolling(q.state.data)) return false
       return JOB_POLL_INTERVAL_MS
     },
   })
 
   const job = query.data ?? null
-  const metrics = getMetricsFromJob(job)
+  const isTimedOut = clientTimedOut || job?.polling_timed_out === true
+  const isCompleted = job?.status === 'completed' && !isTimedOut
+  const isFailed = job?.status === 'failed' || isTimedOut
   const isPolling = Boolean(
-    jobId && job && !isJobTerminal(job.status),
+    jobId && !isTimedOut && job && !shouldStopJobPolling(job),
   )
-  const isFailed = job?.status === 'failed'
-  const isCompleted = job?.status === 'completed'
-  const errorMessage = job?.error_message ?? null
+  const errorMessage = getJobErrorMessage(job, clientTimedOut)
+  const repositoryId = job?.repository_id ?? null
 
   useEffect(() => {
     if (isCompleted) {
@@ -40,11 +61,19 @@ export function useJobPolling(jobId: string | null) {
   return {
     query,
     job,
-    metrics,
+    repositoryId,
     isPolling,
     isFailed,
     isCompleted,
+    isTimedOut,
     errorMessage,
     progress: job?.progress_pct ?? 0,
+    clearJob: () => {
+      if (jobId) {
+        queryClient.removeQueries({ queryKey: queryKeys.jobs.detail(jobId) })
+      }
+      pollStartedAtRef.current = null
+      setClientTimedOut(false)
+    },
   }
 }

@@ -8,11 +8,15 @@ import type { Repository, RepositoryStatus } from '@/types/repository'
 interface RepositoryDetailHeaderProps {
   repository: Repository
   status: RepositoryStatus
+  backTo?: string
+  backLabel?: string
 }
 
 export function RepositoryDetailHeader({
   repository,
   status,
+  backTo = '/',
+  backLabel = 'Back to dashboard',
 }: RepositoryDetailHeaderProps) {
   const shouldReduceMotion = useReducedMotion()
 
@@ -23,11 +27,11 @@ export function RepositoryDetailHeader({
       variants={fadeUp}
     >
       <Link
-        to="/"
+        to={backTo}
         className="inline-flex items-center gap-1.5 text-sm text-github-muted transition hover:text-white"
       >
         <ArrowLeft className="h-3.5 w-3.5" />
-        Back to dashboard
+        {backLabel}
       </Link>
       <div className="mt-5 flex flex-wrap items-center gap-3">
         <h1 className="font-mono text-2xl font-bold tracking-tight text-white sm:text-3xl">

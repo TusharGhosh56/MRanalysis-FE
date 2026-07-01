@@ -10,4 +10,7 @@ export const queryKeys = {
   jobs: {
     detail: (jobId: string) => ['job', jobId] as const,
   },
+  reports: {
+    detail: (id: string) => ['report', id] as const,
+  },
 } as const
