@@ -1,4 +1,5 @@
 import { apiRequest } from '@/api/client'
+import type { CreateRepositoryResponse } from '@/types/job'
 import type {
   AnalysisStatus,
   AnalyticsSnapshot,
@@ -14,8 +15,10 @@ export async function getRepository(id: string): Promise<RepositorySummary> {
   return apiRequest<RepositorySummary>(`/repositories/${id}`)
 }
 
-export async function createRepository(url: string): Promise<Repository> {
-  return apiRequest<Repository>('/repositories', {
+export async function createRepository(
+  url: string,
+): Promise<CreateRepositoryResponse> {
+  return apiRequest<CreateRepositoryResponse>('/repositories', {
     method: 'POST',
     body: { url },
   })

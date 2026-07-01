@@ -52,7 +52,7 @@ export function RepositoryDetailPage() {
       )}
 
       {status?.status === 'failed' && (
-        <AnalysisFailedBanner error={status.error} />
+        <AnalysisFailedBanner message={status.error} />
       )}
 
       {status?.status === 'completed' && analyticsQuery.isLoading && (

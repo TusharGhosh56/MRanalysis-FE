@@ -3,10 +3,10 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { fadeUp } from '@/lib/motion'
 
 interface AnalysisFailedBannerProps {
-  error: string | null
+  message: string | null
 }
 
-export function AnalysisFailedBanner({ error }: AnalysisFailedBannerProps) {
+export function AnalysisFailedBanner({ message }: AnalysisFailedBannerProps) {
   const shouldReduceMotion = useReducedMotion()
 
   return (
@@ -19,7 +19,7 @@ export function AnalysisFailedBanner({ error }: AnalysisFailedBannerProps) {
     >
       <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-red-400" />
       <p className="text-sm text-red-200">
-        {error ?? 'Analysis failed. Try re-analyzing from the dashboard.'}
+        {message ?? 'Analysis failed. Try re-analyzing from the dashboard.'}
       </p>
     </motion.div>
   )
