@@ -33,7 +33,7 @@ export function AppHeader() {
               <BarChart3 className="h-4 w-4" />
             </span>
             <span className="text-base font-semibold text-white sm:text-lg">
-              GitHub Analytics
+              MRanalysis
             </span>
           </Link>
 

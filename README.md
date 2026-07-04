@@ -1,6 +1,6 @@
-﻿# GitHub Analytics — Frontend
+﻿# MRanalysis — Frontend
 
-React dashboard for the GitHub Repository Analytics platform. Consumes the FastAPI backend at `/api/v1`.
+React dashboard for the MRanalysis platform. Consumes the FastAPI backend at `/api/v1`.
 
 ## Tech stack
 

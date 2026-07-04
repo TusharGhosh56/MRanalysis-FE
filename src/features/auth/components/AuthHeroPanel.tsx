@@ -93,7 +93,7 @@ export function AuthHeroPanel() {
       <div className="relative z-10 max-w-md">
         <div className="auth-hero-badge mb-6 inline-flex items-center gap-2 rounded-full border border-github-accent/30 bg-github-accent/10 px-3 py-1 text-xs font-medium text-accent-teal">
           <BarChart3 className="h-3.5 w-3.5" />
-          Git history analytics
+          MRanalysis
         </div>
 
         <h1 className="auth-hero-title text-3xl font-bold tracking-tight text-white sm:text-4xl">
