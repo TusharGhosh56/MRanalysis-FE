@@ -1,15 +1,17 @@
 import type { InputHTMLAttributes, ReactNode } from 'react'
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string
+  label?: string
   error?: string
   icon?: ReactNode
+  hint?: string
 }
 
 export function TextField({
   label,
   error,
   icon,
+  hint,
   id,
   className = '',
   ...props
@@ -17,23 +19,30 @@ export function TextField({
   const inputId = id ?? props.name
 
   return (
-    <div>
-      <label htmlFor={inputId} className="mb-1.5 block text-sm font-medium text-gray-300">
-        {label}
-      </label>
+    <div className="w-full">
+      {label && (
+        <div className="mb-2 flex items-center justify-between">
+          <label htmlFor={inputId} className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+            {label}
+          </label>
+          {hint && <span className="text-xs text-slate-500">{hint}</span>}
+        </div>
+      )}
       <div className="relative">
         {icon && (
-          <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-github-muted">
+          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
             {icon}
           </span>
         )}
         <input
           id={inputId}
-          className={`w-full rounded-lg border border-github-border/80 bg-surface/80 py-2.5 text-white transition placeholder:text-github-muted/70 focus:border-accent-teal/60 focus:shadow-[0_0_0_3px_var(--color-accent-glow)] focus:outline-none ${icon ? 'pl-10 pr-3' : 'px-3'} ${className}`}
+          className={`w-full rounded-xl border border-white/10 bg-slate-900/60 py-2.5 text-sm text-white backdrop-blur-md transition-all duration-200 placeholder:text-slate-500 hover:border-white/20 focus:border-emerald-400 focus:bg-slate-900/90 focus:shadow-[0_0_20px_-3px_rgba(0,245,160,0.3)] focus:outline-none ${
+            icon ? 'pl-10 pr-4' : 'px-4'
+          } ${error ? 'border-rose-500/60 focus:border-rose-500 focus:shadow-[0_0_20px_-3px_rgba(244,63,94,0.3)]' : ''} ${className}`}
           {...props}
         />
       </div>
-      {error && <p className="mt-1.5 text-sm text-red-400">{error}</p>}
+      {error && <p className="mt-1.5 text-xs font-medium text-rose-400">{error}</p>}
     </div>
   )
 }
