@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import { BarChart3, GitBranch, Users, Zap } from 'lucide-react'
+import { Activity, GitBranch, ShieldAlert, Users, Zap } from 'lucide-react'
 import {
   GSAP_DEFAULT_DURATION,
   GSAP_DEFAULT_EASE,
@@ -12,9 +12,10 @@ import {
 gsap.registerPlugin(useGSAP)
 
 const features = [
-  { icon: GitBranch, text: 'Commit trends and file churn over time' },
-  { icon: Users, text: 'Contributor activity and bus factor insights' },
-  { icon: Zap, text: 'Background analysis — refresh when ready' },
+  { icon: GitBranch, text: 'Commit velocity curves and weekly peak cadences' },
+  { icon: ShieldAlert, text: 'Bus factor vulnerability and maintainer concentration' },
+  { icon: Users, text: 'Contributor lifecycles, active vs inactive timelines' },
+  { icon: Zap, text: 'High-throughput async mining with real-time telemetry' },
 ]
 
 export function AuthHeroPanel() {
@@ -57,17 +58,17 @@ export function AuthHeroPanel() {
         )
 
       gsap.to('.auth-hero-orb-1', {
-        x: 20,
-        y: -15,
-        duration: 6,
+        x: 25,
+        y: -20,
+        duration: 8,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
       })
       gsap.to('.auth-hero-orb-2', {
-        x: -15,
-        y: 20,
-        duration: 7,
+        x: -20,
+        y: 25,
+        duration: 9,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
@@ -79,43 +80,51 @@ export function AuthHeroPanel() {
   return (
     <div
       ref={panelRef}
-      className="relative flex h-full min-h-[280px] flex-col justify-center overflow-hidden border-b border-github-border/40 bg-surface-elevated/50 px-6 py-12 sm:px-10 lg:min-h-svh lg:border-b-0 lg:border-r"
+      className="relative flex h-full min-h-[300px] flex-col justify-center overflow-hidden border-b border-white/10 bg-slate-950/80 px-6 py-12 sm:px-10 lg:min-h-svh lg:border-b-0 lg:border-r backdrop-blur-2xl"
     >
+      {/* Ambient Orb Glows (DayNight celestial reference) */}
       <div
-        className="auth-hero-orb auth-hero-orb-1 pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-github-accent/20 blur-3xl"
+        className="auth-hero-orb auth-hero-orb-1 pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-gradient-to-tr from-amber-500/20 to-orange-500/20 blur-3xl"
         aria-hidden
       />
       <div
-        className="auth-hero-orb auth-hero-orb-2 pointer-events-none absolute -right-16 bottom-20 h-48 w-48 rounded-full bg-accent-teal/15 blur-3xl"
+        className="auth-hero-orb auth-hero-orb-2 pointer-events-none absolute -right-16 bottom-20 h-64 w-64 rounded-full bg-gradient-to-tr from-emerald-500/20 to-cyan-500/20 blur-3xl"
         aria-hidden
       />
 
       <div className="relative z-10 max-w-md">
+<<<<<<< Updated upstream
         <div className="auth-hero-badge mb-6 inline-flex items-center gap-2 rounded-full border border-github-accent/30 bg-github-accent/10 px-3 py-1 text-xs font-medium text-accent-teal">
           <BarChart3 className="h-3.5 w-3.5" />
           Git history analytics
+=======
+        <div className="auth-hero-badge mb-6 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1.5 text-xs font-semibold text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
+          <Activity className="h-3.5 w-3.5" />
+          MRanalysis Studio
+>>>>>>> Stashed changes
         </div>
 
-        <h1 className="auth-hero-title text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Understand your repos{' '}
-          <span className="gradient-text">like never before</span>
+        <h1 className="auth-hero-title text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
+          Understand your codebases with{' '}
+          <span className="font-serif italic font-normal text-amber-300">
+            surgical clarity.
+          </span>
         </h1>
 
-        <p className="auth-hero-subtitle mt-4 text-base leading-relaxed text-github-muted">
-          Paste a public GitHub URL. We clone, parse the full history, and surface
-          contributor insights, churn, and trends.
+        <p className="auth-hero-subtitle mt-4 text-sm leading-relaxed text-slate-400 sm:text-base">
+          Sign in to access your audit archives, queue background Git mining jobs, and share deep intelligence reports with your team.
         </p>
 
         <ul className="mt-8 space-y-4">
           {features.map(({ icon: Icon, text }) => (
             <li
               key={text}
-              className="auth-hero-feature flex items-start gap-3 text-sm text-gray-300"
+              className="auth-hero-feature flex items-start gap-3.5 text-xs sm:text-sm text-slate-300"
             >
-              <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-github-accent/15 text-accent-teal">
+              <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-amber-300 shadow-inner">
                 <Icon className="h-4 w-4" />
               </span>
-              {text}
+              <span className="leading-snug pt-1">{text}</span>
             </li>
           ))}
         </ul>

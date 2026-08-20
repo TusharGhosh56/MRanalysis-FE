@@ -22,11 +22,14 @@ export function AuthPageShell({
       initial={shouldReduceMotion ? false : 'hidden'}
       animate="visible"
       variants={fadeUp}
+      className="w-full"
     >
-      <h2 className="text-2xl font-bold tracking-tight text-white">{title}</h2>
-      <p className="mt-2 text-sm text-github-muted">{description}</p>
+      <div className="text-center sm:text-left">
+        <h2 className="text-3xl font-extrabold tracking-tight text-white">{title}</h2>
+        <p className="mt-2 text-sm text-slate-400">{description}</p>
+      </div>
       <div className="mt-8">{children}</div>
-      <p className="mt-6 text-center text-sm text-github-muted">{footer}</p>
+      <div className="mt-6 text-center text-xs text-slate-400">{footer}</div>
     </motion.div>
   )
 }

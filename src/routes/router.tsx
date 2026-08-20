@@ -20,10 +20,10 @@ export const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
+      { index: true, element: <LandingPage /> },
       {
         element: <ProtectedRoute />,
         children: [
-          { index: true, element: <LandingPage /> },
           { path: 'reports', element: <AnalysisReportsPage /> },
           { path: 'reports/:id', element: <AnalysisReportDetailPage /> },
           {

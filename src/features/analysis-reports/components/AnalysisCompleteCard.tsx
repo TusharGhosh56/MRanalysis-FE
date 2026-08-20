@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, CheckCircle2, X } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { fadeUp } from '@/lib/motion'
@@ -22,35 +22,58 @@ export function AnalysisCompleteCard({
       initial={shouldReduceMotion ? false : 'hidden'}
       animate="visible"
       variants={fadeUp}
-      className="glass-card rounded-xl border-green-500/30 p-5"
+      className="relative overflow-hidden rounded-2xl border border-emerald-500/40 bg-slate-950/90 p-5 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.9),0_0_30px_-5px_rgba(0,245,160,0.25)] backdrop-blur-2xl"
     >
-      <div className="flex items-start gap-3">
-        <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-400" />
-        <div className="flex-1">
-          <p className="font-medium text-white">Analysis complete</p>
-          {repositoryLabel && (
-            <p className="mt-1 font-mono text-sm text-github-muted">
-              {repositoryLabel}
-            </p>
-          )}
-          <p className="mt-2 text-sm text-github-muted">
-            Your report is ready. View the full dashboard on the Analysis
-            Reports page.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-3">
-            <Link to={`/reports/${repositoryId}`}>
-              <Button className="gap-2">
-                View report
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            {onDismiss && (
-              <Button variant="ghost" onClick={onDismiss}>
-                Dismiss
-              </Button>
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-start gap-3.5">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(0,245,160,0.4)]">
+            <CheckCircle2 className="h-5 w-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-white text-base">
+                Intelligence Audit Complete
+              </span>
+              <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-400 border border-emerald-500/20">
+                READY
+              </span>
+            </div>
+
+            {repositoryLabel && (
+              <p className="mt-1 font-mono text-xs text-slate-300">
+                {repositoryLabel}
+              </p>
             )}
+
+            <p className="mt-2 text-xs leading-relaxed text-slate-400">
+              Commit history, bus factor risks, file churn, and contributor timelines are ready to inspect.
+            </p>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <Link to={`/reports/${repositoryId}`}>
+                <Button variant="primary" size="sm" className="rounded-xl px-4 py-2 font-semibold">
+                  <span>Open Interactive Report</span>
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Button>
+              </Link>
+              {onDismiss && (
+                <Button variant="ghost" size="sm" onClick={onDismiss} className="text-xs">
+                  Dismiss
+                </Button>
+              )}
+            </div>
           </div>
         </div>
+
+        {onDismiss && (
+          <button
+            type="button"
+            onClick={onDismiss}
+            className="text-slate-500 hover:text-slate-300 p-1 transition"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
       </div>
     </motion.div>
   )
