@@ -45,15 +45,6 @@ export function LandingHero({
         aria-hidden
       />
 
-<<<<<<< Updated upstream
-      <div className="relative mx-auto max-w-6xl">
-        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-12">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-github-accent/30 bg-github-accent/10 px-3 py-1 text-xs font-medium text-accent-teal">
-              <BarChart3 className="h-3.5 w-3.5" />
-              Git history analytics
-            </span>
-=======
       <div className="relative mx-auto max-w-7xl">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
           
@@ -69,7 +60,6 @@ export function LandingHero({
               <span className="text-slate-600">·</span>
               <span className="font-mono text-amber-300 text-[11px]">v2.4 ENGINE</span>
             </div>
->>>>>>> Stashed changes
 
             {/* Massive Display Headline */}
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-[1.08]">

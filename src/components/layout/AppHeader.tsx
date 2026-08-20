@@ -46,14 +46,6 @@ export function AppHeader() {
             to="/"
             className="group flex items-center gap-3 transition-opacity hover:opacity-90"
           >
-<<<<<<< Updated upstream
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-github-accent/20 text-accent-teal">
-              <BarChart3 className="h-4 w-4" />
-            </span>
-            <span className="text-base font-semibold text-white sm:text-lg">
-              GitHub Analytics
-            </span>
-=======
             <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-tr from-amber-500 via-orange-400 to-yellow-300 p-0.5 shadow-[0_0_18px_rgba(245,158,11,0.5)]">
               <span className="flex h-full w-full items-center justify-center rounded-full bg-black/40 text-white">
                 <Activity className="h-3.5 w-3.5 text-amber-200" />
@@ -69,7 +61,6 @@ export function AppHeader() {
                 Studio
               </span>
             </div>
->>>>>>> Stashed changes
           </Link>
 
           {/* Navigation Links */}

@@ -93,15 +93,9 @@ export function AuthHeroPanel() {
       />
 
       <div className="relative z-10 max-w-md">
-<<<<<<< Updated upstream
-        <div className="auth-hero-badge mb-6 inline-flex items-center gap-2 rounded-full border border-github-accent/30 bg-github-accent/10 px-3 py-1 text-xs font-medium text-accent-teal">
-          <BarChart3 className="h-3.5 w-3.5" />
-          Git history analytics
-=======
         <div className="auth-hero-badge mb-6 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1.5 text-xs font-semibold text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.25)]">
           <Activity className="h-3.5 w-3.5" />
           MRanalysis Studio
->>>>>>> Stashed changes
         </div>
 
         <h1 className="auth-hero-title text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
