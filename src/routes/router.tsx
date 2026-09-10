@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { RootLayout } from '@/components/layout/RootLayout'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { AuthLayout } from '@/components/layout/AuthLayout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
@@ -11,28 +12,33 @@ import { LegacyRepositoryRedirect } from '@/routes/LegacyRepositoryRedirect'
 
 export const router = createBrowserRouter([
   {
-    element: <AuthLayout />,
+    element: <RootLayout />,
     children: [
-      { path: 'login', element: <LoginPage /> },
-      { path: 'register', element: <RegisterPage /> },
-    ],
-  },
-  {
-    element: <AppLayout />,
-    children: [
-      { index: true, element: <LandingPage /> },
       {
-        element: <ProtectedRoute />,
+        element: <AuthLayout />,
         children: [
-          { path: 'reports', element: <AnalysisReportsPage /> },
-          { path: 'reports/:id', element: <AnalysisReportDetailPage /> },
-          {
-            path: 'repositories/:id',
-            element: <LegacyRepositoryRedirect />,
-          },
+          { path: 'login', element: <LoginPage /> },
+          { path: 'register', element: <RegisterPage /> },
         ],
       },
-      { path: '*', element: <Navigate to="/" replace /> },
+      {
+        element: <AppLayout />,
+        children: [
+          { index: true, element: <LandingPage /> },
+          {
+            element: <ProtectedRoute />,
+            children: [
+              { path: 'reports', element: <AnalysisReportsPage /> },
+              { path: 'reports/:id', element: <AnalysisReportDetailPage /> },
+              {
+                path: 'repositories/:id',
+                element: <LegacyRepositoryRedirect />,
+              },
+            ],
+          },
+          { path: '*', element: <Navigate to="/" replace /> },
+        ],
+      },
     ],
   },
 ])

@@ -5,7 +5,12 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { getMe, login as loginRequest, register as registerRequest } from '@/api/auth'
+import {
+  getMe,
+  login as loginRequest,
+  loginWithGoogle as loginWithGoogleRequest,
+  register as registerRequest,
+} from '@/api/auth'
 import { AuthContext } from '@/hooks/auth-context'
 import { clearToken, getToken } from '@/lib/auth-storage'
 import type { User } from '@/types/auth'
@@ -33,6 +38,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(me)
   }, [])
 
+  const loginWithGoogle = useCallback(async (credential: string) => {
+    await loginWithGoogleRequest(credential)
+    const me = await getMe()
+    setUser(me)
+  }, [])
+
   const register = useCallback(async (email: string, password: string) => {
     await registerRequest({ email, password })
     await login(email, password)
@@ -44,8 +55,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const value = useMemo(
-    () => ({ user, isLoading, login, register, logout }),
-    [user, isLoading, login, register, logout],
+    () => ({ user, isLoading, login, loginWithGoogle, register, logout }),
+    [user, isLoading, login, loginWithGoogle, register, logout],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -25,6 +25,16 @@ export async function login(body: LoginRequest): Promise<TokenResponse> {
   return data
 }
 
+export async function loginWithGoogle(credential: string): Promise<TokenResponse> {
+  const data = await apiRequest<TokenResponse>('/auth/google', {
+    method: 'POST',
+    body: { credential, token: credential, id_token: credential },
+    auth: false,
+  })
+  setToken(data.access_token)
+  return data
+}
+
 export async function getMe(): Promise<User> {
   return apiRequest<User>('/auth/me')
 }
