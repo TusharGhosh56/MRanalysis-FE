@@ -38,7 +38,7 @@ export function CredentialsFields({
           label="Email"
           type="email"
           autoComplete="email"
-          icon={<Mail className="h-4 w-4" />}
+          icon={<Mail className="h-4 w-4" strokeWidth={2} />}
           error={errors.email?.message}
           {...register('email')}
         />
@@ -48,7 +48,7 @@ export function CredentialsFields({
           label="Password"
           type="password"
           autoComplete={passwordAutoComplete}
-          icon={<Lock className="h-4 w-4" />}
+          icon={<Lock className="h-4 w-4" strokeWidth={2} />}
           error={errors.password?.message}
           {...register('password')}
         />

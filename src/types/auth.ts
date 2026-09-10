@@ -8,6 +8,12 @@ export interface LoginRequest {
   password: string
 }
 
+export interface GoogleAuthRequest {
+  credential?: string
+  token?: string
+  id_token?: string
+}
+
 export interface User {
   id: string
   email: string

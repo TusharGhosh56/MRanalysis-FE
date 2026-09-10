@@ -1,5 +1,6 @@
 import { clearToken, getToken } from '@/lib/auth-storage'
 import { API_BASE_URL } from '@/lib/config'
+import { progressManager } from '@/lib/progress'
 import type { ApiErrorResponse } from '@/types/auth'
 
 export { API_BASE_URL }
@@ -44,20 +45,25 @@ export async function apiFetch(
   const { auth = true, headers, ...rest } = init
   const token = auth ? getToken() : null
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...rest,
-    headers: {
-      ...(rest.body !== undefined ? { 'Content-Type': 'application/json' } : {}),
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...headers,
-    },
-  })
+  progressManager.start()
+  try {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      ...rest,
+      headers: {
+        ...(rest.body !== undefined ? { 'Content-Type': 'application/json' } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...headers,
+      },
+    })
 
-  if (response.status === 401) {
-    clearToken()
+    if (response.status === 401) {
+      clearToken()
+    }
+
+    return response
+  } finally {
+    progressManager.done()
   }
-
-  return response
 }
 
 export async function apiRequest<T>(
