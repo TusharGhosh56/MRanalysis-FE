@@ -48,13 +48,6 @@ export function AnalysisReportBentoGrid({ metrics }: AnalysisReportBentoGridProp
   const { summary, bus_factor, top_contributors } = metrics
   const [activeTab, setActiveTab] = useState<TabType>('overview')
 
-  const busFactorHealth =
-    bus_factor.score >= 3
-      ? 'Healthy'
-      : bus_factor.score === 2
-        ? 'Moderate'
-        : 'Critical'
-
   const isHighRisk = bus_factor.score <= 1
   const isModerateRisk = bus_factor.score === 2
   const topAuthorName = top_contributors?.[0]?.name || 'Primary author'

@@ -42,7 +42,7 @@ export function RepositoryDetailHeader({
       initial={shouldReduceMotion ? false : 'hidden'}
       animate="visible"
       variants={fadeUp}
-      className="rounded-2xl border border-white/[0.08] bg-[#0b0e14]/90 p-6 backdrop-blur-xl shadow-[0_12px_32px_-10px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]"
+      className="mt-8 sm:mt-10 rounded-2xl border border-white/[0.08] bg-[#0b0e14]/90 p-6 backdrop-blur-xl shadow-[0_12px_32px_-10px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)]"
     >
       {/* Top action bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.06] pb-4">
