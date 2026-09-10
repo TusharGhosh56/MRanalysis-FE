@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { GitBranch, ShieldAlert } from 'lucide-react'
+import { GitBranch } from 'lucide-react'
 
 interface AuthLoadingOverlayProps {
   isVisible: boolean
