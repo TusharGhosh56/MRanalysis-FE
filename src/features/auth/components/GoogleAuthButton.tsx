@@ -3,6 +3,31 @@ import { Loader2 } from 'lucide-react'
 import { GOOGLE_CLIENT_ID } from '@/lib/config'
 import { progressManager } from '@/lib/progress'
 
+interface GoogleGlobal {
+  accounts?: {
+    id?: {
+      initialize: (options: {
+        client_id: string
+        callback: (response: { credential?: string }) => void
+        cancel_on_tap_outside?: boolean
+      }) => void
+      renderButton: (
+        parent: HTMLElement,
+        options: {
+          type?: string
+          theme?: string
+          size?: string
+          text?: string
+          shape?: string
+          width?: number
+          logo_alignment?: string
+        },
+      ) => void
+      prompt: () => void
+    }
+  }
+}
+
 interface GoogleAuthButtonProps {
   onSuccess: (credential: string) => Promise<void> | void
   onError?: (err: Error) => void
@@ -50,10 +75,11 @@ export function GoogleAuthButton({
     let isMounted = true
 
     function initGsi() {
-      if (!window.google?.accounts?.id || !containerRef.current) return false
+      const google = (window as unknown as { google?: GoogleGlobal }).google
+      if (!google?.accounts?.id || !containerRef.current) return false
 
       try {
-        window.google.accounts.id.initialize({
+        google.accounts.id.initialize({
           client_id: GOOGLE_CLIENT_ID,
           callback: handleCredential,
           cancel_on_tap_outside: true,
@@ -61,7 +87,7 @@ export function GoogleAuthButton({
 
         // Render Google's native button inside our container
         containerRef.current.innerHTML = ''
-        window.google.accounts.id.renderButton(containerRef.current, {
+        google.accounts.id.renderButton(containerRef.current, {
           type: 'standard',
           theme: 'filled_black',
           size: 'large',
