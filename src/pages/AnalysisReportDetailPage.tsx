@@ -41,7 +41,7 @@ export function AnalysisReportDetailPage() {
   const repositoryLabel = `${repository.owner}/${repository.name}`
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
       <RepositoryDetailHeader
         repository={repository}
         status={repository.status}

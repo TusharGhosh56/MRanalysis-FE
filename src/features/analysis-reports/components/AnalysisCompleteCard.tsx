@@ -22,38 +22,36 @@ export function AnalysisCompleteCard({
       initial={shouldReduceMotion ? false : 'hidden'}
       animate="visible"
       variants={fadeUp}
-      className="relative overflow-hidden rounded-2xl border border-emerald-500/40 bg-slate-950/90 p-5 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.9),0_0_30px_-5px_rgba(0,245,160,0.25)] backdrop-blur-2xl"
+      className="relative overflow-hidden rounded-xl border border-emerald-500/30 bg-[#0b0e14]/95 p-4 shadow-[0_12px_32px_-10px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl"
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="flex items-start gap-3.5">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-[0_0_15px_rgba(0,245,160,0.4)]">
-            <CheckCircle2 className="h-5 w-5" />
+        <div className="flex items-start gap-3">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+            <CheckCircle2 className="h-4 w-4" />
           </div>
+
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-white text-base">
-                Intelligence Audit Complete
-              </span>
-              <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-emerald-400 border border-emerald-500/20">
-                READY
+              <span className="font-semibold text-white text-sm">
+                Repository Audit Complete
               </span>
             </div>
 
             {repositoryLabel && (
-              <p className="mt-1 font-mono text-xs text-slate-300">
+              <p className="mt-0.5 font-mono text-xs text-slate-300">
                 {repositoryLabel}
               </p>
             )}
 
-            <p className="mt-2 text-xs leading-relaxed text-slate-400">
-              Commit history, bus factor risks, file churn, and contributor timelines are ready to inspect.
+            <p className="mt-1 text-xs text-slate-400">
+              Commit cadence, bus factor risks, file churn, and contributor timelines are ready to inspect.
             </p>
 
-            <div className="mt-4 flex flex-wrap items-center gap-3">
+            <div className="mt-3 flex flex-wrap items-center gap-2">
               <Link to={`/reports/${repositoryId}`}>
-                <Button variant="primary" size="sm" className="rounded-xl px-4 py-2 font-semibold">
+                <Button variant="primary" size="sm" className="rounded-lg px-3.5 py-1.5 text-xs font-semibold">
                   <span>Open Interactive Report</span>
-                  <ArrowRight className="h-4 w-4 ml-1" />
+                  <ArrowRight className="h-3.5 w-3.5 ml-1" />
                 </Button>
               </Link>
               {onDismiss && (
@@ -71,7 +69,7 @@ export function AnalysisCompleteCard({
             onClick={onDismiss}
             className="text-slate-500 hover:text-slate-300 p-1 transition"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3.5 w-3.5" />
           </button>
         )}
       </div>

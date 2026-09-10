@@ -2,21 +2,21 @@ import type { RepositoryStatus } from '@/types/repository'
 import { isAnalysisInProgress } from '@/features/repositories/constants'
 
 const statusStyles: Record<RepositoryStatus, string> = {
-  pending: 'bg-yellow-500/15 text-yellow-300 border-yellow-500/30',
-  cloning: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
-  parsing: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
-  analyzing: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
-  completed: 'bg-green-500/15 text-green-300 border-green-500/30',
-  failed: 'bg-red-500/15 text-red-300 border-red-500/30',
+  pending: 'bg-amber-500/10 text-amber-300 border-amber-500/25',
+  cloning: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/25',
+  parsing: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/25',
+  analyzing: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/25',
+  completed: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/25',
+  failed: 'bg-rose-500/10 text-rose-300 border-rose-500/25',
 }
 
 const dotColors: Record<RepositoryStatus, string> = {
-  pending: 'bg-yellow-400',
-  cloning: 'bg-blue-400',
-  parsing: 'bg-blue-400',
-  analyzing: 'bg-purple-400',
-  completed: 'bg-green-400',
-  failed: 'bg-red-400',
+  pending: 'bg-amber-400',
+  cloning: 'bg-cyan-400',
+  parsing: 'bg-cyan-400',
+  analyzing: 'bg-cyan-400',
+  completed: 'bg-emerald-400',
+  failed: 'bg-rose-400',
 }
 
 interface StatusBadgeProps {
@@ -28,7 +28,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize ${statusStyles[status]}`}
+      className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-mono text-[11px] font-medium capitalize ${statusStyles[status]}`}
     >
       <span
         className={`h-1.5 w-1.5 rounded-full ${dotColors[status]} ${inProgress ? 'animate-pulse-dot' : ''}`}

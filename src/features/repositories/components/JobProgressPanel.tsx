@@ -17,17 +17,17 @@ export function JobProgressPanel({ job, repositoryLabel }: JobProgressPanelProps
       initial={shouldReduceMotion ? false : 'hidden'}
       animate="visible"
       variants={fadeUp}
-      className="relative overflow-hidden rounded-2xl border border-amber-400/30 bg-slate-950/90 p-5 shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8),0_0_25px_-5px_rgba(245,158,11,0.2)] backdrop-blur-2xl"
+      className="relative overflow-hidden rounded-xl border border-emerald-500/30 bg-[#0b0e14]/95 p-4 shadow-[0_12px_32px_-10px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl"
       role="status"
       aria-live="polite"
     >
-      <div className="flex items-center justify-between gap-2 text-sm font-semibold text-white">
-        <div className="flex items-center gap-2.5">
-          <Loader2 className="h-4 w-4 animate-spin text-amber-400" />
+      <div className="flex items-center justify-between gap-2 text-xs font-semibold text-white">
+        <div className="flex items-center gap-2">
+          <Loader2 className="h-4 w-4 animate-spin text-emerald-400" />
           <span>
-            Mining Git Objects
+            Mining Git Revisions
             {repositoryLabel && (
-              <span className="ml-1 font-mono text-xs text-amber-300 font-normal">
+              <span className="ml-1.5 font-mono text-emerald-300 font-normal">
                 [{repositoryLabel}]
               </span>
             )}
@@ -35,25 +35,24 @@ export function JobProgressPanel({ job, repositoryLabel }: JobProgressPanelProps
         </div>
 
         {job.stage && (
-          <span className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-slate-300">
+          <span className="rounded border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-slate-300">
             {job.stage}
           </span>
         )}
       </div>
 
       {/* Progress Bar */}
-      <div className="mt-3.5 h-2 w-full overflow-hidden rounded-full bg-white/10 p-0.5">
+      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-amber-500 via-orange-400 to-yellow-300 shadow-[0_0_15px_rgba(245,158,11,0.8)] transition-all duration-500 ease-out"
-          style={{ width: `${progress || 12}%` }}
+          className="h-full rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(0,245,160,0.5)] transition-all duration-300 ease-out"
+          style={{ width: `${progress || 10}%` }}
         />
       </div>
 
-      <div className="mt-2.5 flex items-center justify-between text-xs font-mono text-slate-400">
+      <div className="mt-2 flex items-center justify-between font-mono text-[11px] text-slate-400">
         <span>
-          {progress > 0 ? `${progress}% computed` : 'Queueing worker thread...'}
+          {progress > 0 ? `${progress}% computed` : 'Allocating worker sandbox...'}
         </span>
-        <span className="text-amber-300/80">Live SSE Telemetry</span>
       </div>
     </motion.div>
   )

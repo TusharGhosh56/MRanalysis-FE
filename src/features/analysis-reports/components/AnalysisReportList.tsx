@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, ChevronRight, Trash2 } from 'lucide-react'
+import { ArrowRight, ChevronRight, GitBranch, Trash2 } from 'lucide-react'
 import type { UseMutationResult } from '@tanstack/react-query'
 import { StatusBadge } from '@/components/StatusBadge'
 import { Button } from '@/components/ui/Button'
@@ -13,23 +13,6 @@ interface AnalysisReportListProps {
   deleteMutation: UseMutationResult<void, Error, string>
 }
 
-const GRADIENTS = [
-  'from-amber-400 to-orange-500',
-  'from-emerald-400 to-teal-500',
-  'from-cyan-400 to-blue-500',
-  'from-purple-400 to-pink-500',
-  'from-indigo-400 to-violet-500',
-]
-
-function getAvatarGradient(name: string) {
-  let hash = 0
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  const index = Math.abs(hash) % GRADIENTS.length
-  return GRADIENTS[index]
-}
-
 export function AnalysisReportList({
   repositories,
   deleteMutation,
@@ -39,9 +22,9 @@ export function AnalysisReportList({
   const Item = shouldReduceMotion ? 'li' : motion.li
 
   const listProps = shouldReduceMotion
-    ? { className: 'space-y-4' }
+    ? { className: 'space-y-3' }
     : {
-        className: 'space-y-4',
+        className: 'space-y-3',
         variants: staggerContainer,
         initial: 'hidden' as const,
         animate: 'visible' as const,
@@ -54,76 +37,76 @@ export function AnalysisReportList({
       {repositories.map((repo) => {
         const isOpenable = repo.status === 'completed'
         const inProgress = isAnalysisInProgress(repo.status)
-        const gradient = getAvatarGradient(repo.owner + repo.name)
 
         return (
           <Item key={repo.id} {...itemProps}>
             <div
-              className={`group relative flex flex-col justify-between gap-4 rounded-3xl border border-white/10 bg-slate-950/70 p-5 sm:flex-row sm:items-center backdrop-blur-xl transition-all duration-300 ${
+              className={`group relative flex flex-col justify-between gap-4 rounded-xl border border-white/[0.08] bg-[#0b0e14]/90 p-4 sm:flex-row sm:items-center backdrop-blur-xl shadow-sm transition-all duration-200 ${
                 isOpenable
-                  ? 'hover:border-amber-400/40 hover:bg-slate-900/80 hover:shadow-[0_15px_35px_-10px_rgba(0,0,0,0.8),0_0_25px_-5px_rgba(245,158,11,0.15)]'
-                  : ''
+                  ? 'hover:border-white/20 hover:bg-[#10151f]'
+                  : 'opacity-85'
               }`}
             >
               {/* Top highlight line on hover */}
               <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-amber-400/40"
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-emerald-500/30"
                 aria-hidden
               />
 
               {isOpenable ? (
                 <Link
                   to={`/reports/${repo.id}`}
-                  className="flex min-w-0 flex-1 items-center gap-4"
+                  className="flex min-w-0 flex-1 items-center gap-3.5"
                 >
-                  <div
-                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr ${gradient} font-mono text-sm font-extrabold text-slate-950 shadow-md`}
-                  >
-                    {repo.owner[0]?.toUpperCase() || 'R'}
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 group-hover:border-emerald-500/40 transition">
+                    <GitBranch className="h-4 w-4" />
                   </div>
-                  <div className="min-w-0 flex-1">
+
+                  <div className="min-w-0 flex-1 font-mono">
                     <div className="flex items-center gap-2">
-                      <p className="truncate font-mono text-base font-bold text-white transition group-hover:text-amber-300">
-                        {repo.owner}/{repo.name}
+                      <p className="truncate text-sm font-bold text-white transition group-hover:text-emerald-300">
+                        <span className="text-slate-400">{repo.owner}</span>
+                        <span className="text-slate-600 mx-1">/</span>
+                        <span>{repo.name}</span>
                       </p>
                     </div>
-                    <p className="mt-0.5 truncate font-mono text-xs text-slate-400">
+                    <p className="mt-0.5 truncate text-[11px] text-slate-500">
                       {repo.url}
                     </p>
                   </div>
-                  <ChevronRight className="h-5 w-5 text-slate-500 transition group-hover:translate-x-1 group-hover:text-amber-300" />
+
+                  <ChevronRight className="h-4 w-4 text-slate-600 transition group-hover:translate-x-1 group-hover:text-emerald-400" />
                 </Link>
               ) : (
                 <div
-                  className="flex min-w-0 flex-1 cursor-default items-center gap-4"
+                  className="flex min-w-0 flex-1 cursor-default items-center gap-3.5"
                   title={
                     inProgress
                       ? 'Report available when background analysis completes'
                       : undefined
                   }
                 >
-                  <div
-                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-tr ${gradient} font-mono text-sm font-extrabold text-slate-950 shadow-md opacity-75`}
-                  >
-                    {repo.owner[0]?.toUpperCase() || 'R'}
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-white/[0.02] text-slate-500">
+                    <GitBranch className="h-4 w-4" />
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-mono text-base font-bold text-slate-300">
+
+                  <div className="min-w-0 flex-1 font-mono">
+                    <p className="truncate text-sm font-bold text-slate-300">
                       {repo.owner}/{repo.name}
                     </p>
-                    <p className="mt-0.5 truncate font-mono text-xs text-slate-500">
+                    <p className="mt-0.5 truncate text-[11px] text-slate-500">
                       {repo.url}
                     </p>
                   </div>
                 </div>
               )}
 
-              <div className="flex items-center gap-3 sm:shrink-0">
+              <div className="flex items-center gap-2.5 sm:shrink-0">
                 <StatusBadge status={repo.status} />
 
                 {isOpenable && (
                   <Link to={`/reports/${repo.id}`}>
-                    <Button variant="secondary" size="sm" className="rounded-xl px-3 py-1.5 text-xs">
+                    <Button variant="secondary" size="sm" className="rounded-lg px-3 py-1.5 text-xs font-mono">
                       <span>View</span>
                       <ArrowRight className="h-3 w-3 ml-1" />
                     </Button>
@@ -136,7 +119,7 @@ export function AnalysisReportList({
                   size="sm"
                   onClick={() => deleteMutation.mutate(repo.id)}
                   disabled={deleteMutation.isPending}
-                  className="rounded-xl px-2.5 py-1.5"
+                  className="rounded-lg px-2.5 py-1.5"
                   title="Delete analysis report"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
