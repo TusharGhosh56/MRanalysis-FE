@@ -24,7 +24,7 @@ export function AuthLayout() {
   // Smooth cubic-bezier spring easing
   const transition = {
     duration: 0.65,
-    ease: [0.16, 1, 0.3, 1], // snappy start with smooth deceleration
+    ease: [0.16, 1, 0.3, 1] as const, // snappy start with smooth deceleration
   }
 
   return (

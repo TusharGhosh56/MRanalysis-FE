@@ -16,7 +16,7 @@ import { progressManager } from '@/lib/progress'
  */
 export function TopProgressBar() {
   const location = useLocation()
-  const navigation = useNavigation?.()
+  const navigation = useNavigation()
   const isFetching = useIsFetching()
   const isMutating = useIsMutating()
   const [isApiActive, setIsApiActive] = useState(progressManager.isActive())

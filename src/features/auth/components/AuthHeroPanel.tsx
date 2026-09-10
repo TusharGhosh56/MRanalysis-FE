@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import { GitBranch, ShieldAlert, Users, Zap, Terminal } from 'lucide-react'
+import { GitBranch, ShieldAlert, Zap } from 'lucide-react'
 import {
   GSAP_DEFAULT_DURATION,
   GSAP_DEFAULT_EASE,
@@ -12,6 +12,9 @@ import {
 gsap.registerPlugin(useGSAP)
 
 const features = [
+  { icon: GitBranch, text: 'Audit archives and timeline forensics' },
+  { icon: ShieldAlert, text: 'Maintainer concentration and bus-factor alerts' },
+  { icon: Zap, text: 'Real-time telemetry on active background mining' },
 ]
 
 export function AuthHeroPanel() {
