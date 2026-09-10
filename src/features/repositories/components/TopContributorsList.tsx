@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui/Card'
+import { formatNumber } from '@/features/analysis-reports/utils/format-metrics'
 import type { TopContributor } from '@/types/repository'
 
 interface TopContributorsListProps {
@@ -6,14 +6,6 @@ interface TopContributorsListProps {
   limit?: number
   className?: string
 }
-
-const GRADIENTS = [
-  'from-amber-400 to-orange-500',
-  'from-emerald-400 to-teal-500',
-  'from-cyan-400 to-blue-500',
-  'from-purple-400 to-pink-500',
-  'from-indigo-400 to-violet-500',
-]
 
 function getInitials(name: string): string {
   const parts = name.trim().split(/\s+/)
@@ -23,71 +15,88 @@ function getInitials(name: string): string {
   return name.slice(0, 2).toUpperCase()
 }
 
-function getAvatarGradient(name: string) {
-  let hash = 0
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  const index = Math.abs(hash) % GRADIENTS.length
-  return GRADIENTS[index]
-}
-
 export function TopContributorsList({
   contributors,
   limit = 10,
   className = '',
 }: TopContributorsListProps) {
   const items = contributors?.slice(0, limit) ?? []
+  const maxCommits = items.length > 0 ? items[0].commits : 1
 
   return (
-    <Card className={className}>
+    <div
+      className={`relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0b0e14]/90 p-5 backdrop-blur-xl shadow-[0_8px_24px_-6px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.06)] transition duration-200 hover:border-white/15 ${className}`}
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
+        aria-hidden
+      />
+
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-base font-bold text-white">Top Code Authors</h2>
-          <p className="text-xs text-slate-400">Ranked by historical commit volume</p>
+          <h3 className="text-sm font-semibold tracking-tight text-white sm:text-base">
+            Top Contributors
+          </h3>
+          <p className="text-xs text-slate-400">
+            Ranked by total commits contributed
+          </p>
         </div>
-        <span className="font-mono text-xs text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">
-          {items.length} Authors
+        <span className="rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[11px] font-semibold text-emerald-400">
+          {items.length} {items.length === 1 ? 'Contributor' : 'Contributors'}
         </span>
       </div>
 
       {items.length > 0 ? (
-        <ul className="max-h-72 space-y-1.5 overflow-y-auto pr-1">
+        <ul className="max-h-72 space-y-2 overflow-y-auto pr-1">
           {items.map((contributor, index) => {
-            const gradient = getAvatarGradient(contributor.name)
+            const pct = Math.round((contributor.commits / maxCommits) * 100)
             return (
               <li
                 key={contributor.email}
-                className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/[0.02] p-2.5 transition hover:border-white/15 hover:bg-white/[0.05]"
+                className="group relative rounded-xl border border-white/[0.04] bg-white/[0.02] p-2.5 transition hover:border-white/15 hover:bg-white/[0.05]"
               >
-                <span className="w-5 shrink-0 text-center font-mono text-xs font-bold text-amber-400/80">
-                  #{index + 1}
-                </span>
-                <span
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr ${gradient} font-mono text-[11px] font-extrabold text-slate-950 shadow-sm`}
-                >
-                  {getInitials(contributor.name)}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-mono text-xs font-semibold text-white">
-                    {contributor.name}
-                  </p>
-                  <p className="truncate font-mono text-[11px] text-slate-500">
-                    {contributor.email}
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-xs font-bold text-amber-300">
-                    {contributor.commits} <span className="text-[10px] text-slate-400 font-normal">commits</span>
+                <div className="flex items-center gap-3">
+                  <span className="w-5 shrink-0 text-center font-mono text-xs font-bold text-slate-500 group-hover:text-emerald-400 transition-colors">
+                    #{index + 1}
                   </span>
+
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-[#161e2c] font-mono text-[10px] font-bold text-slate-200">
+                    {getInitials(contributor.name)}
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate font-mono text-xs font-semibold text-white">
+                      {contributor.name}
+                    </p>
+                    <p className="truncate font-mono text-[10px] text-slate-500">
+                      {contributor.email}
+                    </p>
+                  </div>
+
+                  <div className="shrink-0 text-right font-mono">
+                    <span className="rounded border border-white/10 bg-white/[0.04] px-2 py-0.5 text-xs font-bold text-emerald-300">
+                      {formatNumber(contributor.commits)}{' '}
+                      <span className="text-[10px] text-slate-400 font-normal">commits</span>
+                    </span>
+                  </div>
+                </div>
+
+                {/* Relative commit weight progress bar */}
+                <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/[0.06]">
+                  <div
+                    className="h-full rounded-full bg-emerald-400/70 transition-all duration-300 group-hover:bg-emerald-400"
+                    style={{ width: `${pct}%` }}
+                  />
                 </div>
               </li>
             )
           })}
         </ul>
       ) : (
-        <p className="text-sm text-slate-500">No contributor data available.</p>
+        <p className="py-12 text-center font-mono text-xs text-slate-500">
+          No contributor records found.
+        </p>
       )}
-    </Card>
+    </div>
   )
 }

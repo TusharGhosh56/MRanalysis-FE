@@ -2,13 +2,12 @@ import { JobProgressPanel } from '@/features/repositories/components/JobProgress
 import { AnalysisCompleteCard } from '@/features/analysis-reports/components/AnalysisCompleteCard'
 import { AnalysisStatusCard } from '@/features/analysis-reports/components/AnalysisStatusCard'
 import { useLandingJob } from '@/features/analysis-reports/hooks/useLandingJob'
-import { LandingFeatureBento } from '@/features/landing/components/LandingFeatureBento'
 import { LandingHero } from '@/features/landing/components/LandingHero'
-import { LandingHowItWorks } from '@/features/landing/components/LandingHowItWorks'
-import { LandingManifesto } from '@/features/landing/components/LandingManifesto'
-import { LandingMarquee } from '@/features/landing/components/LandingMarquee'
+import { LandingInteractivePreview } from '@/features/landing/components/LandingInteractivePreview'
+import { LandingTelemetryTicker } from '@/features/landing/components/LandingTelemetryTicker'
+import { LandingForensicComparison } from '@/features/landing/components/LandingForensicComparison'
+import { LandingFeatureBento } from '@/features/landing/components/LandingFeatureBento'
 import { LandingReportsCta } from '@/features/landing/components/LandingReportsCta'
-import { LandingStatsCounter } from '@/features/landing/components/LandingStatsCounter'
 
 export function LandingPage() {
   const {
@@ -31,8 +30,8 @@ export function LandingPage() {
         : undefined
 
   return (
-    <div className="space-y-4">
-      {/* 1. DayNight Studio Hero */}
+    <div className="space-y-16 pb-12">
+      {/* 1. Hero Section with Command Bar & Live URL Parser */}
       <LandingHero createMutation={createMutation} isJobPolling={isJobPolling}>
         {isJobPolling && job && (
           <JobProgressPanel job={job} repositoryLabel={repositoryLabel} />
@@ -65,22 +64,21 @@ export function LandingPage() {
         )}
       </LandingHero>
 
-      {/* 2. Marquee Ticker */}
-      <LandingMarquee />
+      {/* 2. Interactive Telemetry Sandbox / Preview */}
+      <div className="px-4 sm:px-6 lg:px-8">
+        <LandingInteractivePreview />
+      </div>
 
-      {/* 3. Position Manifesto */}
-      <LandingManifesto />
+      {/* 3. Forensic Telemetry Monospace Marquee Ribbon */}
+      <LandingTelemetryTicker />
 
-      {/* 4. Statistics Showcase (4 Columns) */}
-      <LandingStatsCounter />
+      {/* 4. Value Demonstration: Surface vs Forensics Perspective Switcher */}
+      <LandingForensicComparison />
 
-      {/* 5. Bento Grid Capabilities */}
+      {/* 5. Core Analytical Bento with Interactive Micro-Charts (Punchcard, Churn Treemap, Bus Factor) */}
       <LandingFeatureBento />
 
-      {/* 6. Processing Pipeline (How It Works) */}
-      <LandingHowItWorks />
-
-      {/* 7. Call To Action */}
+      {/* 6. Understated Exploration Banner */}
       <LandingReportsCta />
     </div>
   )

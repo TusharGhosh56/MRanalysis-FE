@@ -1,194 +1,161 @@
-import { ArrowUpRight } from 'lucide-react'
+import { GitBranch, ShieldCheck, Terminal, ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
-function GithubIcon({ className = 'h-4 w-4' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-      <path d="M9 18c-4.51 2-5-2-7-2" />
-    </svg>
-  )
-}
-
 export function AppFooter() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
   return (
-    <footer className="relative mt-24 border-t border-white/10 bg-slate-950/80 pt-16 pb-12 backdrop-blur-xl">
-      {/* Top ambient highlight */}
-      <div
-        className="pointer-events-none absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-amber-400/40 to-transparent"
-        aria-hidden
-      />
-
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Upper Footer Action Bar */}
-        <div className="flex flex-col items-start justify-between gap-6 border-b border-white/10 pb-12 md:flex-row md:items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Surgical Git Intelligence Platform
-            </div>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">
-              Turn commit histories into <span className="font-serif italic text-amber-400">actionable foresight.</span>
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={scrollToTop}
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-xs font-semibold text-slate-300 transition hover:border-white/30 hover:bg-white/[0.08] hover:text-white"
-            >
-              Back to top
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </button>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-xs font-semibold text-amber-300 shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)] transition hover:bg-amber-400/20 hover:text-amber-200"
-            >
-              <GithubIcon className="h-3.5 w-3.5" />
-              GitHub
-            </a>
-          </div>
-        </div>
-
-        {/* Middle Navigation Grid */}
-        <div className="grid grid-cols-2 gap-8 py-12 md:grid-cols-4 lg:grid-cols-5">
-          <div className="col-span-2">
-            <div className="flex items-center gap-2">
-              <div className="h-6 w-6 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 shadow-[0_0_12px_rgba(245,158,11,0.5)]" />
-              <span className="text-lg font-bold tracking-tight text-white">
+    <footer className="mt-28 border-t border-white/[0.08] bg-[#07090e] pt-14 pb-10">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5 pb-12 border-b border-white/[0.06]">
+          
+          {/* Brand & Mission Statement (2 cols on desktop) */}
+          <div className="lg:col-span-2 space-y-4">
+            <Link to="/" className="inline-flex items-center gap-2.5 transition opacity-90 hover:opacity-100">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <GitBranch className="h-4 w-4" />
+              </div>
+              <span className="text-base font-bold tracking-tight text-white font-display">
                 MRanalysis
               </span>
-              <span className="font-serif text-sm font-semibold italic text-amber-400">
-                Studio
-              </span>
-            </div>
-            <p className="mt-3 max-w-sm text-xs leading-relaxed text-slate-400">
-              High-throughput repository intelligence, AST churn mapping, contributor concentration, and bus-factor vulnerability modeling for engineering leaders.
+            </Link>
+
+            <p className="text-xs leading-relaxed text-slate-400 max-w-sm">
+              Surgical Git forensics and contributor resilience intelligence. Uncover single-maintainer bottlenecks, temporal velocity rhythms, and code churn across public repositories.
             </p>
-            <div className="mt-4 flex items-center gap-2 text-[11px] text-slate-500">
-              <span>Async-First Processing</span>
-              <span>·</span>
-              <span>Zero-Storage Git Telemetry</span>
+
+            {/* Privacy Architecture Guarantee */}
+            <div className="inline-flex items-start gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] p-3 text-xs">
+              <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+              <div className="space-y-0.5">
+                <span className="font-semibold text-white text-[11px]">Zero Code Persistence</span>
+                <p className="text-[10px] text-slate-500 leading-normal">
+                  Trees are cloned ephemerally in-memory and parsed into telemetry matrices without storing source files.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-              Intelligence
-            </p>
-            <ul className="mt-4 space-y-2.5 text-xs text-slate-400">
-              <li>
-                <Link to="/" className="transition hover:text-white">
-                  Commit Velocity
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="transition hover:text-white">
-                  Bus Factor Risk
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="transition hover:text-white">
-                  Code Ownership Heatmap
-                </Link>
-              </li>
-              <li>
-                <Link to="/" className="transition hover:text-white">
-                  Churn & File Impact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+          {/* Column 1: Platform */}
+          <div className="space-y-3 font-mono text-xs">
+            <span className="font-semibold uppercase tracking-wider text-slate-300 text-[11px]">
               Platform
-            </p>
-            <ul className="mt-4 space-y-2.5 text-xs text-slate-400">
+            </span>
+            <ul className="space-y-2 text-slate-400">
               <li>
-                <Link to="/reports" className="transition hover:text-white">
-                  Analysis Reports
+                <Link to="/" className="hover:text-emerald-300 transition">
+                  Overview & Sandbox
                 </Link>
               </li>
               <li>
-                <Link to="/" className="transition hover:text-white">
-                  Live Terminal Telemetry
+                <Link to="/reports" className="hover:text-emerald-300 transition">
+                  Public Audit Reports
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="transition hover:text-white">
+                <Link to="/login" className="hover:text-emerald-300 transition">
                   Sign In
                 </Link>
               </li>
               <li>
-                <Link to="/register" className="transition hover:text-white">
+                <Link to="/register" className="hover:text-emerald-300 transition">
                   Get Started
                 </Link>
               </li>
             </ul>
           </div>
 
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-300">
-              Architecture
-            </p>
-            <ul className="mt-4 space-y-2.5 text-xs text-slate-400">
-              <li>
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  FastAPI Engine
-                </span>
+          {/* Column 2: Dimensions */}
+          <div className="space-y-3 font-mono text-xs">
+            <span className="font-semibold uppercase tracking-wider text-slate-300 text-[11px]">
+              Forensics
+            </span>
+            <ul className="space-y-2 text-slate-400">
+              <li className="text-slate-400 hover:text-slate-200 transition cursor-default">
+                Bus Factor Algorithm
               </li>
-              <li>
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-                  Celery Worker Queue
-                </span>
+              <li className="text-slate-400 hover:text-slate-200 transition cursor-default">
+                Commit Punchcard Heatmap
               </li>
-              <li>
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-indigo-400" />
-                  PostgreSQL Metrics
-                </span>
+              <li className="text-slate-400 hover:text-slate-200 transition cursor-default">
+                File Churn Treemaps
               </li>
-              <li>
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
-                  Vite + React 19
-                </span>
+              <li className="text-slate-400 hover:text-slate-200 transition cursor-default">
+                Dormant Maintainer Alert
+              </li>
+              <li className="text-slate-400 hover:text-slate-200 transition cursor-default">
+                Ownership Concentration
               </li>
             </ul>
           </div>
-        </div>
 
-        {/* Massive DayNight Studio Style Watermark */}
-        <div className="overflow-hidden select-none py-6 border-t border-white/5">
-          <h1 className="text-center font-extrabold tracking-tighter text-[13vw] leading-none text-white/[0.04] whitespace-nowrap">
-            MRanalysis <span className="font-serif italic font-normal text-amber-400/[0.07]">Studio</span>
-          </h1>
-        </div>
-
-        {/* Bottom copyright & attribution */}
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row">
-          <p>© {new Date().getFullYear()} MRanalysis Studio. Inspired by DayNight Design Aesthetics.</p>
-          <div className="flex items-center gap-1 text-slate-400">
-            <span>Engineered with precision for Git intelligence</span>
+          {/* Column 3: Stack */}
+          <div className="space-y-3 font-mono text-xs">
+            <span className="font-semibold uppercase tracking-wider text-slate-300 text-[11px]">
+              Architecture
+            </span>
+            <ul className="space-y-2 text-slate-400">
+              <li className="flex items-center gap-1.5 text-slate-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
+                <span>FastAPI Telemetry Worker</span>
+              </li>
+              <li className="flex items-center gap-1.5 text-slate-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
+                <span>Celery Async Tasks</span>
+              </li>
+              <li className="flex items-center gap-1.5 text-slate-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
+                <span>PostgreSQL Snapshots</span>
+              </li>
+              <li className="flex items-center gap-1.5 text-slate-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" />
+                <span>Vite + React 19 Frontend</span>
+              </li>
+            </ul>
           </div>
+
         </div>
+
+        {/* Bottom Sub-bar */}
+        <div className="pt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-xs font-mono text-slate-500">
+          
+          <div className="flex flex-wrap items-center gap-3">
+            <span>© {new Date().getFullYear()} MRanalysis.</span>
+            <span className="hidden sm:inline text-slate-700">·</span>
+            <span className="text-slate-400">Engineered for engineering leaders.</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            {/* Command Bar Shortcut */}
+            <div className="hidden md:inline-flex items-center gap-1.5 text-[11px] text-slate-500">
+              <Terminal className="h-3 w-3 text-slate-400" />
+              <span>Press</span>
+              <kbd className="rounded border border-white/10 bg-white/[0.04] px-1 py-0.5 text-[10px] text-slate-300 font-mono">
+                /
+              </kbd>
+              <span>to analyze</span>
+            </div>
+
+            {/* Live Operational Status Beacon */}
+            <div className="inline-flex items-center gap-1.5 text-[11px] text-emerald-400/90">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Telemetry Systems Operational</span>
+            </div>
+
+            {/* GitHub */}
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-slate-400 hover:text-white transition"
+            >
+              <span>GitHub</span>
+              <ArrowUpRight className="h-3 w-3 text-slate-500" />
+            </a>
+          </div>
+
+        </div>
+
       </div>
     </footer>
   )

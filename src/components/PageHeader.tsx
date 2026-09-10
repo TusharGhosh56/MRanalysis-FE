@@ -21,15 +21,15 @@ export function PageHeader({ title, subtitle, badge, action }: PageHeaderProps) 
     >
       <div>
         {badge && (
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400 shadow-[0_0_15px_-3px_rgba(0,245,160,0.3)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            {badge}
+          <div className="mb-2.5 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] px-3 py-1 font-mono text-xs text-emerald-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-dot" />
+            <span>{badge}</span>
           </div>
         )}
-        <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
           {title}
         </h1>
-        <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-slate-400 sm:text-base">
+        <p className="mt-1.5 max-w-2xl text-xs sm:text-sm leading-relaxed text-slate-400">
           {subtitle}
         </p>
       </div>

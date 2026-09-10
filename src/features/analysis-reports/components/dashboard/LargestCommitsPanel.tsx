@@ -3,6 +3,7 @@ import {
   formatDate,
   formatNumber,
 } from '@/features/analysis-reports/utils/format-metrics'
+import { GitCommit } from 'lucide-react'
 import type { LargestCommit } from '@/types/repository'
 
 interface LargestCommitsPanelProps {
@@ -16,37 +17,45 @@ export function LargestCommitsPanel({
   className,
   limit = 8,
 }: LargestCommitsPanelProps) {
-  const items = data.slice(0, limit)
-  if (items.length === 0) return null
+  const items = (data || []).slice(0, limit)
 
   return (
-    <DashboardPanel title="Largest commits" className={className}>
-      <ul className="max-h-80 space-y-3 overflow-y-auto">
+    <DashboardPanel
+      title="Largest Commits"
+      subtitle="Commits with the biggest code additions and deletions"
+      className={className}
+      isEmpty={items.length === 0}
+      emptyMessage="No unusually large commits detected."
+    >
+      <ul className="max-h-80 space-y-2.5 overflow-y-auto pr-1 font-mono text-xs">
         {items.map((commit) => (
           <li
             key={commit.hash}
-            className="rounded-lg border border-github-border/40 p-3"
+            className="rounded-xl border border-white/[0.04] bg-white/[0.02] p-3 transition hover:border-white/15 hover:bg-white/[0.04]"
           >
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-mono text-xs text-accent-teal">
-                {commit.hash}
-              </span>
-              <span className="text-xs text-github-muted">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 text-emerald-400">
+                <GitCommit className="h-3.5 w-3.5" />
+                <span className="font-bold">{commit.hash}</span>
+              </div>
+              <span className="text-[11px] text-slate-500">
                 {formatDate(commit.committed_at)}
               </span>
             </div>
-            <p className="mt-1 line-clamp-2 text-sm text-white">
+
+            <p className="mt-1.5 line-clamp-2 text-xs font-normal text-slate-300">
               {commit.message}
             </p>
-            <p className="mt-2 text-xs text-github-muted">
-              <span className="text-green-400">
-                +{formatNumber(commit.insertions)}
+
+            <div className="mt-2 flex items-center gap-3 text-[11px]">
+              <span className="text-emerald-400 font-semibold">
+                +{formatNumber(commit.insertions)} lines
               </span>
-              {' / '}
-              <span className="text-red-400">
-                -{formatNumber(commit.deletions)}
+              <span className="text-slate-600">/</span>
+              <span className="text-rose-400 font-semibold">
+                -{formatNumber(commit.deletions)} lines
               </span>
-            </p>
+            </div>
           </li>
         ))}
       </ul>
